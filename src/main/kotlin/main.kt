@@ -21,8 +21,8 @@ class Comments(
 )
 
 object WallService {
-    private var posts = emptyArray<Post>()
-    private var idWall = 0
+    private var posts = emptyArray<Post>() 
+    private var idWall = 1
 
     fun add(post: Post): Post {
         posts += post.copy(id = idWall)
@@ -43,6 +43,11 @@ object WallService {
             }
         }
         return false
+    }
+
+    fun clear() {
+        posts = emptyArray()
+        idWall = 1
     }
 }
 
@@ -67,7 +72,8 @@ fun main() {
             canOpen = true
         ),
     )
-    var firstPost2 = Post(
+
+    var secondPost = Post(
         id = 0,
         ownerId = 0,
         fromId = 0,
@@ -86,7 +92,7 @@ fun main() {
         ),
     )
 
-    var firstPost3 = Post(
+    var thirdPost = Post(
         id = 1,
         ownerId = 0,
         fromId = 0,
@@ -106,7 +112,7 @@ fun main() {
     )
 
     WallService.add(firstPost)
-    WallService.add(firstPost2)
-    WallService.update(firstPost3)
-    println(WallService.get()[1])
+    WallService.add(secondPost)
+    WallService.update(thirdPost)
+    println(WallService.get()[0])
 }
