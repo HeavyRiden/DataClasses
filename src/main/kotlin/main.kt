@@ -22,11 +22,30 @@ class Comments(
 
 object WallService {
     private var posts = emptyArray<Post>()
+    private var idWall = 0
 
-    fun add(post: Post) {
-        posts += post
+    fun add(post: Post): Post {
+        posts += post.copy(id = idWall)
+        idWall += 1
+        return posts.last()
+    }
+
+
+    fun get(): Array<Post> {
+        return posts
+    }
+
+    fun update(post: Post): Boolean {
+        for ((index, post2) in posts.withIndex()) {
+            if (post.id == post2.id) {
+                posts[index] = post
+                return true
+            }
+        }
+        return false
     }
 }
+
 
 fun main() {
 
@@ -46,8 +65,48 @@ fun main() {
             groupsCanPost = true,
             canClose = true,
             canOpen = true
-        )
+        ),
+    )
+    var firstPost2 = Post(
+        id = 0,
+        ownerId = 0,
+        fromId = 0,
+        createdBy = 0,
+        text = "второй пост",
+        markedAsAds = false,
+        isFavorite = true,
+        signerId = 0,
+        canPin = true,
+        comment = Comments(
+            count = 0,
+            canPost = true,
+            groupsCanPost = true,
+            canClose = true,
+            canOpen = true
+        ),
+    )
+
+    var firstPost3 = Post(
+        id = 1,
+        ownerId = 0,
+        fromId = 0,
+        createdBy = 0,
+        text = "третий пост",
+        markedAsAds = false,
+        isFavorite = true,
+        signerId = 0,
+        canPin = true,
+        comment = Comments(
+            count = 0,
+            canPost = true,
+            groupsCanPost = true,
+            canClose = true,
+            canOpen = true
+        ),
     )
 
     WallService.add(firstPost)
+    WallService.add(firstPost2)
+    WallService.update(firstPost3)
+    println(WallService.get()[1])
 }
