@@ -12,7 +12,7 @@ class WallServiceUpdateTest {
     @Test
     fun update() {
 
-        var firstPost = Post(
+        val firstPost = Post(
             id = 0,
             ownerId = 0,
             fromId = 0,
@@ -31,7 +31,7 @@ class WallServiceUpdateTest {
             ),
         )
 
-        var secondPost = Post(
+        val secondPost = Post(
             id = 0,
             ownerId = 0,
             fromId = 0,
@@ -50,7 +50,7 @@ class WallServiceUpdateTest {
             ),
         )
 
-        var thirdPost = Post(
+        val thirdPost = Post(
             id = 1,
             ownerId = 0,
             fromId = 0,
@@ -75,5 +75,52 @@ class WallServiceUpdateTest {
         val result = WallService.update(thirdPost) // выполняем целевое действие
 
         assertTrue(result) // проверяем результат
+    }
+
+    @Test
+    fun negUpdate() {
+        val firstPost = Post(
+            id = 0,
+            ownerId = 0,
+            fromId = 0,
+            createdBy = 0,
+            text = "Первый пост",
+            markedAsAds = false,
+            isFavorite = true,
+            signerId = 0,
+            canPin = true,
+            comment = Comments(
+                count = 0,
+                canPost = true,
+                groupsCanPost = true,
+                canClose = true,
+                canOpen = true
+            ),
+        )
+
+        val secondPost = Post(
+            id = 2,
+            ownerId = 0,
+            fromId = 0,
+            createdBy = 0,
+            text = "второй пост",
+            markedAsAds = false,
+            isFavorite = true,
+            signerId = 0,
+            canPin = true,
+            comment = Comments(
+                count = 0,
+                canPost = true,
+                groupsCanPost = true,
+                canClose = true,
+                canOpen = true
+            ),
+        )
+
+        WallService.add(firstPost)
+
+        val result = WallService.update(secondPost) // выполняем целевое действие
+
+        assertFalse(result)
     }
 }

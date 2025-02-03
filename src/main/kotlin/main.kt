@@ -30,11 +30,6 @@ object WallService {
         return posts.last()
     }
 
-
-    fun get(): Array<Post> {
-        return posts
-    }
-
     fun update(post: Post): Boolean {
         for ((index, post2) in posts.withIndex()) {
             if (post.id == post2.id) {
@@ -114,5 +109,4 @@ fun main() {
     WallService.add(firstPost)
     WallService.add(secondPost)
     WallService.update(thirdPost)
-    println(WallService.get()[0])
 }

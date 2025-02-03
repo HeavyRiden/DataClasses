@@ -29,11 +29,7 @@ class WallServiceAddTest {
             ),
         )
 
-
-
-        WallService.add(firstPost)
-
-        val result = WallService.get()[0].id
+        val result = WallService.add(firstPost).id
 
         assertEquals(1, result)
     }
