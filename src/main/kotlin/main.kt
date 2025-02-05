@@ -9,7 +9,7 @@ data class Post(
     val signerId: Int, // Идентификатор автора, если запись была опубликована от имени сообщества и подписана пользователем
     val canPin: Boolean, // Информация о том, может ли текущий пользователь закрепить запись
     val comment: Comments, // Информация о комментариях к записи, объект с полями
-    val attachment: Attachments? //
+    val attachment: Array<Attachments>? //
 
 )
 
@@ -50,7 +50,7 @@ object WallService {
 
 fun main() {
 
-    var firstPost = Post(
+    val firstPost = Post(
         id = 0,
         ownerId = 0,
         fromId = 0,
@@ -67,10 +67,10 @@ fun main() {
             canClose = true,
             canOpen = true
         ),
-        attachment = null
+        attachment = null,
     )
 
-    var secondPost = Post(
+    val secondPost = Post(
         id = 0,
         ownerId = 0,
         fromId = 0,
@@ -90,7 +90,7 @@ fun main() {
         attachment = null
     )
 
-    var thirdPost = Post(
+    val thirdPost = Post(
         id = 1,
         ownerId = 0,
         fromId = 0,
