@@ -27,6 +27,7 @@ class WallServiceAddTest {
                 canClose = true,
                 canOpen = true
             ),
+            attachment = null,
         )
 
         val result = WallService.add(firstPost).id

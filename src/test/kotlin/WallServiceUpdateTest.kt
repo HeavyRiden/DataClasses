@@ -29,6 +29,7 @@ class WallServiceUpdateTest {
                 canClose = true,
                 canOpen = true
             ),
+            attachment = null,
         )
 
         val secondPost = Post(
@@ -48,6 +49,7 @@ class WallServiceUpdateTest {
                 canClose = true,
                 canOpen = true
             ),
+            attachment = null,
         )
 
         val thirdPost = Post(
@@ -67,6 +69,7 @@ class WallServiceUpdateTest {
                 canClose = true,
                 canOpen = true
             ),
+            attachment = null,
         )
 
         WallService.add(firstPost)
@@ -96,6 +99,7 @@ class WallServiceUpdateTest {
                 canClose = true,
                 canOpen = true
             ),
+            attachment = null,
         )
 
         val secondPost = Post(
@@ -115,6 +119,7 @@ class WallServiceUpdateTest {
                 canClose = true,
                 canOpen = true
             ),
+            attachment = null,
         )
 
         WallService.add(firstPost)
