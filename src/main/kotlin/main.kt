@@ -8,7 +8,8 @@ data class Post(
     val isFavorite: Boolean, // true, если объект добавлен в закладки у текущего пользователя
     val signerId: Int, // Идентификатор автора, если запись была опубликована от имени сообщества и подписана пользователем
     val canPin: Boolean, // Информация о том, может ли текущий пользователь закрепить запись
-    val comment: Comments // Информация о комментариях к записи, объект с полями
+    val comment: Comments, // Информация о комментариях к записи, объект с полями
+    val attachment: Attachments? //
 
 )
 
@@ -21,7 +22,7 @@ class Comments(
 )
 
 object WallService {
-    private var posts = emptyArray<Post>() 
+    private var posts = emptyArray<Post>()
     private var idWall = 1
 
     fun add(post: Post): Post {
@@ -71,6 +72,7 @@ fun main() {
             canClose = true,
             canOpen = true
         ),
+        attachment = null
     )
 
     var secondPost = Post(
@@ -90,6 +92,7 @@ fun main() {
             canClose = true,
             canOpen = true
         ),
+        attachment = null
     )
 
     var thirdPost = Post(
@@ -109,6 +112,7 @@ fun main() {
             canClose = true,
             canOpen = true
         ),
+        attachment = null
     )
 
     WallService.add(firstPost)
