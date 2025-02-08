@@ -1,7 +1,7 @@
-interface Attachments {
+sealed class Attachments(
     val type: String // Тип вложения(аудио, видео..)
 
-}
+)
 
 
 data class Audio(
@@ -12,10 +12,7 @@ data class Audio(
     val duration: Int, // Длительность аудиозаписи в секундах
 )
 
-class AudioAttachment(
-    override val type: String,
-    val audio: Audio,
-) : Attachments
+data class AudioAttachment(val audio: Audio) : Attachments("audio")
 
 
 data class Video(
@@ -26,10 +23,7 @@ data class Video(
     val description: String // Текст описания видеозаписи
 )
 
-class VideoAttachment(
-    override val type: String,
-    val video: Video,
-) : Attachments
+data class VideoAttachment(val video: Video) : Attachments("video")
 
 
 data class Photo(
@@ -37,13 +31,10 @@ data class Photo(
     val ownerId: Int, // Идентификатор владельца фотографии
     val albumId: Int, // Идентификатор альбома, в котором находится фотография
     val text: String, // Текст описания фотографии
-    val date: Int, // Дата добавления в формате Unixtime
+    val date: Long, // Дата добавления в формате Unixtime
 )
 
-class PhotoAttachment(
-    override val type: String,
-    val audio: File,
-) : Attachments
+data class PhotoAttachment(val photo: Photo) : Attachments("photo")
 
 
 data class File(
@@ -54,18 +45,11 @@ data class File(
     val ext: String, // Расширение файла
 )
 
-class FileAttachment(
-    override val type: String,
-    val audio: File,
-) : Attachments
-
+data class FileAttachment(val file: File) : Attachments("file")
 
 data class Geotag(
     val type: Int, // Тип места
     val latitude: Int, // Географическая широта
 )
 
-class GeotagAttachment(
-    override val type: String,
-    val audio: File,
-) : Attachments
+data class GeoTagAttachment(val geotag: Geotag) : Attachments("geotag")

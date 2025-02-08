@@ -45,6 +45,10 @@ object WallService {
         posts = emptyArray()
         idWall = 1
     }
+
+    fun get(): Array<Post> {
+        return posts
+    }
 }
 
 
@@ -87,7 +91,26 @@ fun main() {
             canClose = true,
             canOpen = true
         ),
-        attachment = null
+        attachment = arrayOf(
+            AudioAttachment(
+                audio = Audio(
+                    id = 0,
+                    ownerId = 0,
+                    artist = "Artist",
+                    title = "Title",
+                    duration = 100,
+                )
+            ),
+            VideoAttachment(
+                video = Video(
+                    id = 0,
+                    ownerId = 0,
+                    title = "VideoTitle",
+                    duration = 60,
+                    description = "Cats"
+                )
+            )
+        )
     )
 
     val thirdPost = Post(
@@ -107,10 +130,25 @@ fun main() {
             canClose = true,
             canOpen = true
         ),
-        attachment = null
+        attachment = arrayOf(
+            PhotoAttachment(
+                photo = Photo(
+                    id = 0,
+                    ownerId = 0,
+                    albumId = 1,
+                    text = "text",
+                    date = 1738899357,
+                )
+            )
+
+        )
     )
 
     WallService.add(firstPost)
     WallService.add(secondPost)
     WallService.update(thirdPost)
+    println(WallService.get()[0])
+
+
 }
+
