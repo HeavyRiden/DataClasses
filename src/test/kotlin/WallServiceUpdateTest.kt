@@ -22,13 +22,9 @@ class WallServiceUpdateTest {
             isFavorite = true,
             signerId = 0,
             canPin = true,
-            comment = Comments(
-                count = 0,
-                canPost = true,
-                groupsCanPost = true,
-                canClose = true,
-                canOpen = true
-            ),
+            comment = arrayOf(Comments(
+                text = "коммент3"
+            )),
             attachment = null,
         )
 
@@ -42,13 +38,9 @@ class WallServiceUpdateTest {
             isFavorite = true,
             signerId = 0,
             canPin = true,
-            comment = Comments(
-                count = 0,
-                canPost = true,
-                groupsCanPost = true,
-                canClose = true,
-                canOpen = true
-            ),
+            comment = arrayOf(Comments(
+                text = "коммент4"
+            )),
             attachment = null,
         )
 
@@ -62,13 +54,9 @@ class WallServiceUpdateTest {
             isFavorite = true,
             signerId = 0,
             canPin = true,
-            comment = Comments(
-                count = 0,
-                canPost = true,
-                groupsCanPost = true,
-                canClose = true,
-                canOpen = true
-            ),
+            comment = arrayOf(Comments(
+                text = "коммент5"
+            )),
             attachment = null,
         )
 
@@ -92,13 +80,9 @@ class WallServiceUpdateTest {
             isFavorite = true,
             signerId = 0,
             canPin = true,
-            comment = Comments(
-                count = 0,
-                canPost = true,
-                groupsCanPost = true,
-                canClose = true,
-                canOpen = true
-            ),
+            comment = arrayOf(Comments(
+                text = "коммент6"
+            )),
             attachment = null,
         )
 
@@ -112,13 +96,9 @@ class WallServiceUpdateTest {
             isFavorite = true,
             signerId = 0,
             canPin = true,
-            comment = Comments(
-                count = 0,
-                canPost = true,
-                groupsCanPost = true,
-                canClose = true,
-                canOpen = true
-            ),
+            comment = arrayOf(Comments(
+                text = "коммент7"
+            )),
             attachment = null,
         )
 

@@ -1,15 +1,16 @@
 import org.junit.Assert.*
+import org.junit.Test
 
-class WallServiceAddTest {
+class CommentsTest {
 
-    @org.junit.Before
-    fun clearBeforeTest() {
-        WallService.clear()
+
+    @Test(expected = PostNotFoundException::class)
+    fun shouldThrow() {
+        WallService.createComment(100, Comments(text = "Привет"))
     }
 
-    @org.junit.Test
-    fun add() {
-
+    @Test
+    fun createComment() {
         val firstPost = Post(
             id = 0,
             ownerId = 0,
@@ -28,8 +29,11 @@ class WallServiceAddTest {
             attachment = null,
         )
 
-        val result = WallService.add(firstPost).id
+        WallService.add(firstPost)
 
-        assertEquals(1, result)
+        val comm = Comments(text = "текст")
+        val comm2: Comments = WallService.createComment(1, comm)
+
+        assertEquals(comm, comm2)
     }
 }
