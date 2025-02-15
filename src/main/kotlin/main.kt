@@ -8,17 +8,18 @@ data class Post(
     val isFavorite: Boolean, // true, если объект добавлен в закладки у текущего пользователя
     val signerId: Int, // Идентификатор автора, если запись была опубликована от имени сообщества и подписана пользователем
     val canPin: Boolean, // Информация о том, может ли текущий пользователь закрепить запись
-    val comment: Comments, // Информация о комментариях к записи, объект с полями
+    var comment: Array<Comments>?, // Информация о комментариях к записи, объект с полями
     val attachment: Array<Attachments>? //
 
 )
 
 class Comments(
-    private var count: Int, // количество комментариев
-    private var canPost: Boolean, // информация о том, может ли текущий пользователь комментировать запись
-    private var groupsCanPost: Boolean, // информация о том, могут ли сообщества комментировать запись;
-    private var canClose: Boolean, // может ли текущий пользователь закрыть комментарии к записи;
-    private var canOpen: Boolean, // может ли текущий пользователь открыть комментарии к записи.
+    var id: Int = 0, // id комментария
+    private var canPost: Boolean = true, // информация о том, может ли текущий пользователь комментировать запись
+    private var groupsCanPost: Boolean = true, // информация о том, могут ли сообщества комментировать запись;
+    private var canClose: Boolean = true, // может ли текущий пользователь закрыть комментарии к записи;
+    private var canOpen: Boolean = true, // может ли текущий пользователь открыть комментарии к записи.
+    private var text: String, // текст комментария
 )
 
 object WallService {
@@ -32,8 +33,8 @@ object WallService {
     }
 
     fun update(post: Post): Boolean {
-        for ((index, post2) in posts.withIndex()) {
-            if (post.id == post2.id) {
+        for ((index, current) in posts.withIndex()) {
+            if (post.id == current.id) {
                 posts[index] = post
                 return true
             }
@@ -48,6 +49,19 @@ object WallService {
 
     fun get(): Array<Post> {
         return posts
+    }
+
+    fun createComment(postId: Int, comment: Comments): Comments {
+        var found: Boolean = false
+            for ((index, current) in posts.withIndex()) {
+                if (postId == current.id) {
+                    current.comment = current.comment!! + comment
+                    comment.id += current.comment!!.size
+                    found = true
+                }
+            }
+        if (!found) throw PostNotFoundException("no post with id $postId")
+        return comment
     }
 }
 
@@ -64,12 +78,10 @@ fun main() {
         isFavorite = true,
         signerId = 0,
         canPin = true,
-        comment = Comments(
-            count = 0,
-            canPost = true,
-            groupsCanPost = true,
-            canClose = true,
-            canOpen = true
+        comment = arrayOf(
+            Comments(
+                text = "Первый коммент"
+            )
         ),
         attachment = null,
     )
@@ -84,12 +96,10 @@ fun main() {
         isFavorite = true,
         signerId = 0,
         canPin = true,
-        comment = Comments(
-            count = 0,
-            canPost = true,
-            groupsCanPost = true,
-            canClose = true,
-            canOpen = true
+        comment = arrayOf(
+            Comments(
+                text = "Второй коммент"
+            )
         ),
         attachment = arrayOf(
             AudioAttachment(
@@ -123,12 +133,10 @@ fun main() {
         isFavorite = true,
         signerId = 0,
         canPin = true,
-        comment = Comments(
-            count = 0,
-            canPost = true,
-            groupsCanPost = true,
-            canClose = true,
-            canOpen = true
+        comment = arrayOf(
+            Comments(
+                text = "Третий коммент"
+            )
         ),
         attachment = arrayOf(
             PhotoAttachment(
@@ -148,7 +156,7 @@ fun main() {
     WallService.add(secondPost)
     WallService.update(thirdPost)
     println(WallService.get()[0])
-
-
+    val comm = WallService.createComment(10, Comments(text = "Привет"))
+    println(comm)
 }
 
