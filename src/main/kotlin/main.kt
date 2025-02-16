@@ -53,13 +53,16 @@ object WallService {
 
     fun createComment(postId: Int, comment: Comments): Comments {
         var found: Boolean = false
-            for ((index, current) in posts.withIndex()) {
-                if (postId == current.id) {
-                    current.comment = current.comment!! + comment
-                    comment.id += current.comment!!.size
-                    found = true
+        for ((index, current) in posts.withIndex()) {
+            if (postId == current.id) {
+                if (current.comment == null) {
+                    current.comment = emptyArray<Comments>()
                 }
+                current.comment = current.comment!! + comment
+                comment.id += current.comment!!.size
+                found = true
             }
+        }
         if (!found) throw PostNotFoundException("no post with id $postId")
         return comment
     }
@@ -78,11 +81,7 @@ fun main() {
         isFavorite = true,
         signerId = 0,
         canPin = true,
-        comment = arrayOf(
-            Comments(
-                text = "Первый коммент"
-            )
-        ),
+        comment = null,
         attachment = null,
     )
 
@@ -153,10 +152,7 @@ fun main() {
     )
 
     WallService.add(firstPost)
-    WallService.add(secondPost)
-    WallService.update(thirdPost)
-    println(WallService.get()[0])
-    val comm = WallService.createComment(10, Comments(text = "Привет"))
+    val comm = WallService.createComment(1, Comments(text = "Привет"))
     println(comm)
 }
 
